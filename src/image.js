@@ -1,6 +1,6 @@
 import omit from 'lodash/omit';
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import qs from 'query-string';
 import PropTypes from 'prop-types';
 
@@ -8,10 +8,6 @@ export default class Img extends Component {
   constructor(props) {
     super(props);
     this.placeholder = null;
-  }
-
-  getDefaultProps () {
-    return this.defaultProps;
   }
 
   componentDidMount () {
