@@ -1,7 +1,8 @@
 var omit = require('lodash/omit'),
-  React = require('react'),
-  ReactDOM = require('react-dom'),
-  qs = require('query-string');
+    React = require('react'),
+    ReactDOM = require('react-dom'),
+    qs = require('query-string');
+    PropTypes = require('prop-types');
 
 
 var DEFAULT_PROPS = {
@@ -15,11 +16,8 @@ var DEFAULT_PROPS = {
 
 
 var Img = React.createClass({
-  propTypes: {
-    src: React.PropTypes.string.isRequired,
-    usePlaceholder: React.PropTypes.bool,
-    placeholder: React.PropTypes.object,
-  },
+
+  placeholder: null,
 
   getDefaultProps: function() {
     return DEFAULT_PROPS;
@@ -41,9 +39,11 @@ var Img = React.createClass({
       let placeholderAttrs = omit(attrs, 'width', 'height');
 
       return (
-        <img {...placeholderAttrs} ref="placeholder" data-src={src} />
+        <img {...placeholderAttrs} ref={function(data) {
+          this.placeholder = data;
+        }} data-src={src} />
       );
-    } 
+    }
     // real
     else {
       return (
@@ -70,7 +70,8 @@ var Img = React.createClass({
       return;
     }
 
-    let node = ReactDOM.findDOMNode(this.refs.placeholder);
+    // let node = ReactDOM.findDOMNode(this.refs.placeholder);
+    let node = this.placeholder;
 
     // require in here to prevent errors during server-side rendering
     let Holder = require('holderjs');
@@ -86,8 +87,14 @@ var Img = React.createClass({
 
 });
 
+Img.propTypes = {
+  src: PropTypes.string.isRequired,
+  usePlaceholder: PropTypes.bool,
+  placeholder: PropTypes.object,
+};
 
-// make 
+
+// make
 Img.DEFAULT_PROPS = DEFAULT_PROPS;
 
 
