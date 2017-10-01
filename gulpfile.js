@@ -10,7 +10,9 @@ var buildFolder = './build';
 
 gulp.task('js', function() {
   return gulp.src( srcFile )
-    .pipe( babel() )
+    .pipe( babel({
+      presets: ['env']
+    }) )
     .pipe( uglify() )
     .pipe( gulp.dest(buildFolder) )
   ;
