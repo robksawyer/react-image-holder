@@ -1,10 +1,9 @@
 import omit from 'lodash/omit';
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
 import qs from 'query-string';
 import PropTypes from 'prop-types';
 
-export default class Img extends Component {
+class Img extends Component {
   constructor(props) {
     super(props);
     this.placeholder = null;
@@ -26,7 +25,6 @@ export default class Img extends Component {
       return;
     }
 
-    // let node = ReactDOM.findDOMNode(this.refs.placeholder);
     const node = this.placeholder;
 
     // require in here to prevent errors during server-side rendering
@@ -81,3 +79,5 @@ Img.propTypes = {
   usePlaceholder: PropTypes.bool,
   placeholder: PropTypes.object,
 };
+
+export default Img;

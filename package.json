@@ -1,6 +1,6 @@
 {
   "name": "react-image-holder",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "React image component with offline placeholder fallbacks",
   "main": "index.js",
   "scripts": {
@@ -35,8 +35,8 @@
     "run-sequence": "~0.3.6"
   },
   "peerDependencies": {
-    "react": ">=0.14.7",
-    "react-dom": "*"
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
   },
   "dependencies": {
     "graceful-fs": "^4.1.11",
