@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 class Img extends Component {
   constructor(props) {
     super(props);
+
+    this.placeholder = null;
   }
 
   componentDidMount () {
@@ -20,18 +22,21 @@ class Img extends Component {
     if (!(typeof window != 'undefined' && window.document)) {
       return;
     }
-    if (!this.props.usePlaceholder) {
+
+    const { placeholder, usePlaceholder } = this.props;
+
+    if (!usePlaceholder) {
       return;
     }
 
-    const node = this.placeholder;
+    const node = placeholder;
 
     // require in here to prevent errors during server-side rendering
     const Holder = require('holderjs');
 
     Holder.run({
       domain: 'holder.js',
-      images: node,
+      images: placeholder,
       object: null,
       bgnodes: null,
       stylenodes: null,
@@ -39,15 +44,14 @@ class Img extends Component {
   }
 
   render() {
-    let props = this.props;
-    let { width, height } = this.props;
-    let attrs = omit(props, 'src', 'usePlaceholder', 'placeholder');
+    const { usePlaceholder, src, placeholder, width, height } = this.props;
+    const attrs = omit(this.props, 'src', 'usePlaceholder', 'placeholder');
 
     // placeholder
-    if (props.usePlaceholder) {
-      let query = qs.stringify(props.placeholder);
-      let src = `holder.js/${width}x${height}?${query}`;
-      let placeholderAttrs = omit(attrs, 'width', 'height');
+    if (usePlaceholder) {
+      const query = qs.stringify(placeholder);
+      const src = `holder.js/${width}x${height}?${query}`;
+      const placeholderAttrs = omit(attrs, 'width', 'height');
 
       return (
         <img {...placeholderAttrs} ref={function(data) {
@@ -58,13 +62,14 @@ class Img extends Component {
     // real
     else {
       return (
-        <img {...attrs} src={props.src} />
+        <img {...attrs} src={src} />
       );
     }
   }
 }
 
 Img.defaultProps = {
+  src: '',
   usePlaceholder: false,
   placeholder: {
     /* See https://github.com/imsky/holder#placeholder-options for info on more props and themes */
@@ -74,7 +79,7 @@ Img.defaultProps = {
 };
 
 Img.propTypes = {
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   usePlaceholder: PropTypes.bool,
   placeholder: PropTypes.object,
 };
