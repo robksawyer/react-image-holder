@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 class Img extends Component {
   constructor(props) {
     super(props);
-    this.placeholder = null;
   }
 
   componentDidMount () {
