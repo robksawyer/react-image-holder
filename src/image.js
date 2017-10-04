@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 class Img extends Component {
   constructor(props) {
     super(props);
-
-    this.placeholder = null;
   }
 
   componentDidMount () {
@@ -54,9 +52,10 @@ class Img extends Component {
       const placeholderAttrs = omit(attrs, 'width', 'height');
 
       return (
-        <img {...placeholderAttrs} ref={function(data) {
-          this.placeholder = data;
-        }} data-src={src} />
+        <img {...placeholderAttrs}
+          ref={(data) => { this.placeholder = data; }}
+          data-src={src}
+        />
       );
     }
     // real
