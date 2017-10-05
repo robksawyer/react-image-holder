@@ -21,23 +21,17 @@ class Img extends Component {
       return;
     }
 
-    const { placeholder, usePlaceholder } = this.props;
+    const { usePlaceholder } = this.props;
 
     if (!usePlaceholder) {
       return;
     }
 
-    const node = placeholder;
-
     // require in here to prevent errors during server-side rendering
     const Holder = require('holderjs');
 
     Holder.run({
-      domain: 'holder.js',
-      images: placeholder,
-      object: null,
-      bgnodes: null,
-      stylenodes: null,
+      images: this.placeholderElement,
     });
   }
 
@@ -53,7 +47,7 @@ class Img extends Component {
 
       return (
         <img {...placeholderAttrs}
-          ref={(data) => { this.placeholder = data; }}
+          ref={(data) => { this.placeholderElement = data; }}
           data-src={src}
         />
       );
